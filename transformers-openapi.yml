@@ -1,0 +1,57 @@
+openapi: "3.0.2"
+info:
+  title: Hugging Face Transformers
+  version: "1.0"
+servers:
+  - url: http://168.119.163.111:8080
+paths:
+  /:
+    get:
+      responses:
+        "200":
+          description: OK
+  /tokenize:
+    post:
+      responses:
+        "200":
+          description: OK
+  /detokenize:
+    post:
+      responses:
+        "200":
+          description: OK
+  /forward:
+    description: Forwards data into the ML model
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputs:
+                  type: string
+                  description: Input to work with. E.g. text to summarize.
+                  example: The nonprofit Wikimedia Foundation provides the essential infrastructure for free knowledge. We host Wikipedia, the free online encyclopedia, created, edited, and verified by volunteers around the world, as well as many other vital community projects. All of which is made possible thanks to donations from individuals like you. We welcome anyone who shares our vision to join us in collecting and sharing knowledge that fully represents human diversity.
+                attention_mask:
+                  type: string
+                  example:
+                tokens_type_ids:
+                  type: string
+                  example:
+      responses:
+        "200":
+          description: Everything was processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: array
+                    description: The Processed output
+                    items:
+                      type: object
+                      properties:
+                        summary_text:
+                          type: string
